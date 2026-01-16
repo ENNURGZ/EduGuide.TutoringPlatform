@@ -6,7 +6,7 @@ public class CreateListingDto
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public int CategoryId { get; set; }
-    public List<string> Images { get; set; } = new();
+    public List<IFormFile> Images { get; set; } = new();
 }
 
 public class UpdateListingDto
@@ -35,6 +35,7 @@ public class ListingDto
 public class ListingFilterDto
 {
     public int? CategoryId { get; set; }
+    public int? TutorId { get; set; }
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }
     public string? SortBy { get; set; }
