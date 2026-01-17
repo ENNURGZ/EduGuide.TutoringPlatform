@@ -61,5 +61,35 @@ app.UseStaticFiles(); // Enable serving files from wwwroot
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+//admin user creation
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<EduGuide.API.Data.EduGuideContext>();
+        context.Database.Migrate();
+
+        var userManager = services.GetRequiredService<UserManager<EduGuide.API.Models.User>>();
+        var adminEmail = "admin@eduguide.com";
+        if (await userManager.FindByEmailAsync(adminEmail) == null)
+        {
+            var adminUser = new EduGuide.API.Models.User
+            {
+                UserName = adminEmail,
+                Email = adminEmail,
+                Name = "System Admin",
+                Role = "Admin"
+            };
+            await userManager.CreateAsync(adminUser, "Admin123!");
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred during database seeding.");
+    }
+}
+
 app.Run();
 
