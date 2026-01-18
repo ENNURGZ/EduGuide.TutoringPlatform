@@ -1,0 +1,35 @@
+/* Tailwind kütüphanesi */
+@import "tailwindcss";
+
+@theme {
+  /* Modern Indigo Theme */
+  --color-primary-DEFAULT: #4F46E5;
+  /* Indigo 600 */
+  --color-primary-hover: #4338CA;
+  /* Indigo 700 */
+
+  --color-secondary-DEFAULT: #0F172A;
+  /* Slate 900 */
+  --color-secondary-hover: #1E293B;
+  /* Slate 800 */
+
+  --color-accent-DEFAULT: #14B8A6;
+  /* Teal 500 */
+
+  --color-text-main: #111827;
+  /* Gray 900 */
+  --color-text-muted: #6B7280;
+  /* Gray 500 */
+  --color-text-light: #F9FAFB;
+  /* Gray 50 */
+
+  --color-background-default: #F3F4F6;
+  /* Gray 100 */
+  --color-background-paper: #FFFFFF;
+}
+
+@layer base {
+  body {
+    @apply bg-background-default text-text-main font-sans antialiased;
+  }
+}
