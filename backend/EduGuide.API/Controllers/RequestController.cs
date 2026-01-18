@@ -68,6 +68,7 @@ public class RequestController : ControllerBase
 
         IQueryable<LessonRequest> query = _context.LessonRequests
             .Include(r => r.Listing)
+                .ThenInclude(l => l.Tutor)
             .Include(r => r.Student);
 
         if (role == "Student")
@@ -132,5 +133,28 @@ public class RequestController : ControllerBase
         }
 
         return Ok(request);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteRequest(int id)
+    {
+        var (authorized, role, userId) = Validate();
+        if (!authorized) return Unauthorized();
+
+        var request = await _context.LessonRequests.FindAsync(id);
+        if (request == null) return NotFound();
+
+        if (role == "Student" && request.StudentId != userId)
+        {
+            return StatusCode(403, "Forbidden: You can only delete your own requests.");
+        }
+        if (role == "Tutor" && role != "Admin") 
+        {
+             return StatusCode(403, "Forbidden: Tutors cannot delete requests.");
+        }
+
+        _context.LessonRequests.Remove(request);
+        await _context.SaveChangesAsync();
+        return Ok(new { message = "Request deleted successfully" });
     }
 }

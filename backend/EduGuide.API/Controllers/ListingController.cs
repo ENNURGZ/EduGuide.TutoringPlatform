@@ -70,6 +70,7 @@ public class ListingController : ControllerBase
             Title = dto.Title,
             Description = dto.Description,
             Price = dto.Price,
+            Mode = dto.Mode,
             CategoryId = dto.CategoryId,
             TutorId = userId!.Value,
             Status = "Draft",
@@ -102,6 +103,7 @@ public class ListingController : ControllerBase
         listing.Title = dto.Title;
         listing.Description = dto.Description;
         listing.Price = dto.Price;
+        listing.Mode = dto.Mode;
         listing.Status = dto.Status;
         listing.UpdatedAt = DateTime.UtcNow;
 
@@ -176,6 +178,11 @@ public class ListingController : ControllerBase
         if (filter.MaxPrice.HasValue)
             query = query.Where(l => l.Price <= filter.MaxPrice);
 
+        if (!string.IsNullOrEmpty(filter.Search))
+        {
+            query = query.Where(l => l.Title.Contains(filter.Search) || l.Tutor!.Name.Contains(filter.Search));
+        }
+
         if (filter.SortBy == "priceAsc") query = query.OrderBy(l => l.Price);
         else if (filter.SortBy == "priceDesc") query = query.OrderByDescending(l => l.Price);
         else query = query.OrderByDescending(l => l.CreatedAt);
@@ -189,6 +196,7 @@ public class ListingController : ControllerBase
                 Title = l.Title,
                 Description = l.Description,
                 Price = l.Price,
+                Mode = l.Mode,
                 Status = l.Status,
                 CategoryId = l.CategoryId,
                 CategoryName = l.Category!.Name,
@@ -219,6 +227,7 @@ public class ListingController : ControllerBase
             Title = listing.Title,
             Description = listing.Description,
             Price = listing.Price,
+            Mode = listing.Mode,
             Status = listing.Status,
             CategoryId = listing.CategoryId,
             CategoryName = listing.Category?.Name ?? "",

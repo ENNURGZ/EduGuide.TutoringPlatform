@@ -8,7 +8,8 @@ public class Listing
     public decimal Price { get; set; }
     public int CategoryId { get; set; }
     public int TutorId { get; set; }
-    public string Status { get; set; } = "Draft"; // Draft, Published, Archived
+    public string Mode { get; set; } = "Online";
+    public string Status { get; set; } = "Draft";
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 

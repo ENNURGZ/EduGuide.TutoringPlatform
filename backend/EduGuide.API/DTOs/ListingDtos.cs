@@ -5,6 +5,7 @@ public class CreateListingDto
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
+    public string Mode { get; set; } = "Online";
     public int CategoryId { get; set; }
     public List<IFormFile> Images { get; set; } = new();
 }
@@ -14,6 +15,7 @@ public class UpdateListingDto
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
+    public string Mode { get; set; } = "Online";
     public string Status { get; set; } = "Draft";
 }
 
@@ -23,6 +25,7 @@ public class ListingDto
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
+    public string Mode { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public int CategoryId { get; set; }
     public string CategoryName { get; set; } = string.Empty;
@@ -38,6 +41,7 @@ public class ListingFilterDto
     public int? TutorId { get; set; }
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }
+    public string? Search { get; set; }
     public string? SortBy { get; set; }
     public int Page { get; set; } = 1;
     public int PageSize { get; set; } = 10;
