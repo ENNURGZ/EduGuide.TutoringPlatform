@@ -4,7 +4,7 @@ EduGuide is a modern web application designed to connect students with private t
 
 ## Project Demo
 
-[Watch the Project]('https://www.youtube.com/watch?v=mAfYmrtGJMg')
+[Watch the Project](https://www.youtube.com/watch?v=mAfYmrtGJMg)
 
 ## Tech Stack
 
