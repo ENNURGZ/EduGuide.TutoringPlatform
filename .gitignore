@@ -1,0 +1,47 @@
+# Visual Studio & VS Code
+.vs/
+.vscode/
+bin/
+[Bb]in/
+obj/
+[Oo]bj/
+/out/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.cache
+*.xml
+*.log
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+*.nuget.props
+*.nuget.targets
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# Node
+node_modules/
+npm-debug.log
+
+# Environment
+.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# User Uploads (EduGuide Specific)
+wwwroot/uploads/**
+!wwwroot/uploads/.gitkeep
