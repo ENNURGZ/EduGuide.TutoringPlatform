@@ -5,8 +5,12 @@ import { createRequest } from '../../api/request';
 import Layout from '../../components/Layout';
 import { MapPin, Globe, Clock, Star, Share2, Heart, MessageCircle, Calendar, ShieldCheck, ArrowLeft, X, Loader2 } from 'lucide-react';
 
-
-
+const getImageUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http') || url.startsWith('//')) return url;
+    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5024';
+    return `${baseUrl}${url}`;
+};
 const ListingDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -25,8 +29,7 @@ const ListingDetails = () => {
                 const data = await getListingById(id);
                 setListing(data);
                 if (data.images && data.images.length > 0) {
-                    // Assuming backend provides full URL now, or we just use raw path
-                    setActiveImage(data.images[0]);
+                    setActiveImage(getImageUrl(data.images[0]));
                 }
             } catch (err) {
                 console.error("Listing detail error", err);
@@ -122,25 +125,17 @@ const ListingDetails = () => {
                                 alt={listing.title}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
-                            <div className="absolute top-4 right-4 flex gap-2">
-                                <button className="p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white text-gray-700 transition-all">
-                                    <Share2 className="w-5 h-5" />
-                                </button>
-                                <button className="p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white text-red-500 transition-all">
-                                    <Heart className="w-5 h-5" />
-                                </button>
-                            </div>
                         </div>
                         <div className="grid grid-cols-3 gap-4">
                             {listing.images.map((img, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setActiveImage(img)}
-                                    className={`h-24 rounded-xl overflow-hidden cursor-pointer border-2 transition-all ${activeImage === img ? 'border-indigo-600 opacity-100' : 'border-transparent opacity-70 hover:opacity-100'
+                                    onClick={() => setActiveImage(getImageUrl(img))}
+                                    className={`h-24 rounded-xl overflow-hidden cursor-pointer border-2 transition-all ${activeImage === getImageUrl(img) ? 'border-indigo-600 opacity-100' : 'border-transparent opacity-70 hover:opacity-100'
                                         }`}
                                 >
                                     <img
-                                        src={img}
+                                        src={getImageUrl(img)}
                                         alt={`Thumbnail ${index + 1}`}
                                         className="w-full h-full object-cover"
                                     />
